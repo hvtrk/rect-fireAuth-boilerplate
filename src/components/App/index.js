@@ -38,7 +38,6 @@ const Copyright = () => {
 const App = () => (
   <Router>
     <Navigation />
-    <hr />
     <Container component="main" >
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />

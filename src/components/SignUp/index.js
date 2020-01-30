@@ -5,19 +5,20 @@ import { compose } from 'recompose';
 import * as ROUTES from '../../constants/routes';
 import { Link } from 'react-router-dom';
 /* Material component */
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 /* End */
+
 /* CSS Style */
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -40,30 +41,6 @@ const useStyles = makeStyles(theme => ({
 }));
 /* End */
 
-const SignUpPage = () => {
-    const classes = useStyles();
-    return (
-        <Container component="main" maxWidth="md">
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign up
-                </Typography>
-                <CssBaseline />
-                <SignUpForm classes={classes} />
-                <Grid container justify="flex-end">
-                    <Grid item>
-                        Already have an account?
-                    <Link to={ROUTES.SIGN_IN} variant="body2">Sign in</Link>
-                    </Grid>
-                </Grid>
-            </div>
-        </Container>
-    );
-};
-
 const INITIAL_STATE = {
     username: '',
     email: '',
@@ -82,7 +59,8 @@ class SignUpFormBase extends Component {
     };
 
     onSubmit = event => {
-        const { username, email, passwordOne } = this.state;
+        console.log(this.props);
+        const { email, passwordOne } = this.state; /* username */
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
@@ -187,13 +165,13 @@ class SignUpFormBase extends Component {
                     width: '100px',
                     margin: '0 auto'
                 }}>
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className={this.props.classes.submit}
-                    disabled={isInvalid}>
-                    Sign Up
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        className={this.props.classes.submit}
+                        disabled={isInvalid}>
+                        Sign Up
                     </Button>
                 </div>
                 {error && <p>{error.message}</p>}
@@ -208,9 +186,34 @@ const SignUpLink = () => (
     </p>
 );
 
+const SignUpPage = () => {
+    const classes = useStyles();
+    return (
+        <Container component="main" maxWidth="md">
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h2">
+                    <strong>Sign up</strong>
+                </Typography>
+                <CssBaseline />
+                <SignUpForm classes={classes} />
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        Already have an account?
+                    <Link to={ROUTES.SIGN_IN} variant="body2">Sign in</Link>
+                    </Grid>
+                </Grid>
+            </div>
+        </Container>
+    );
+};
+
 const SignUpForm = compose(
     withRouter,
     withFirebase,
 )(SignUpFormBase);
+
 export default SignUpPage;
 export { SignUpForm, SignUpLink };

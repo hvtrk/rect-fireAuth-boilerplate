@@ -139,9 +139,9 @@ const SignInPage = () => {
         <Avatar className={classes.avatar}> {/*  */}
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-          </Typography>
+        <Typography component="h1" variant="h3">
+          <em>Sign in</em>
+        </Typography>
         <SignInForm classes={classes}/>
         <Grid container>
           <Grid item xs>

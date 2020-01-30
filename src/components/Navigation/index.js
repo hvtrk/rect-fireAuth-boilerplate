@@ -6,13 +6,13 @@ import { AuthUserContext } from '../Session';
 
 /* Material Components */
 import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import AppBar from './AppBar';
 import Toolbar, { styles as toolbarStyles } from './Toolbar';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => {
+  return ({
   title: {
     fontSize: 24,
   },
@@ -39,7 +39,8 @@ const useStyles = makeStyles(theme => ({
   linkSecondary: {
     color: theme.palette.secondary.main,
   },
-}));
+  });
+});
 
 const Navigation = ({ authUser }) => (
   <div>
@@ -83,7 +84,7 @@ const NavigationAuth = () => {
             <Link
               variant="h6"
               underline="none"
-              className={clsx(classes.rightLink, classes.linkSecondary)}
+              className={clsx(classes.rightLink)}
               href={ROUTES.ACCOUNT}>
               {'Account'}
             </Link>
@@ -91,7 +92,7 @@ const NavigationAuth = () => {
             <Link
               variant="h6"
               underline="none"
-              className={clsx(classes.rightLink, classes.linkSecondary)}
+              className={clsx(classes.rightLink)}
               href={ROUTES.ADMIN}>
               {'Admin'}
             </Link>
@@ -104,15 +105,36 @@ const NavigationAuth = () => {
     </div>
   );
 };
-const NavigationNonAuth = () => (
-  <ul className="navigation">
-    <li>
-      <Link href={ROUTES.LANDING}>Landing</Link>
-    </li>
-    <li>
-      <Link href={ROUTES.SIGN_IN}>Sign In</Link>
-    </li>
-  </ul>
-);
+const NavigationNonAuth = () => {
+  const classes = useStyles();
+  return (
+    <div>
+      <AppBar position="fixed">
+        <Toolbar className={classes.toolbar}>
+          <div className={classes.left} />
+          <Link
+            variant="h6"
+            underline="none"
+            color="inherit"
+            className={classes.title}
+            href={ROUTES.LANDING}>
+            Test Site React Hooks
+        </Link>
+
+          <div className={classes.right}>
+            {/* Admin */}
+            <Link
+              variant="h6"
+              underline="none"
+              className={clsx(classes.rightLink)}
+              href={ROUTES.SIGN_IN}>
+              {'Sign In'}
+            </Link>
+          </div>
+        </Toolbar>
+      </AppBar>
+      <div className={classes.placeholder} />
+    </div>);
+};
 
 export default Navigation;

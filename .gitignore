@@ -8,8 +8,9 @@
 # testing
 /coverage
 
-# production
-/build
+# package Lock files
+package-lock.json
+yarn.lock
 
 # misc
 .DS_Store
